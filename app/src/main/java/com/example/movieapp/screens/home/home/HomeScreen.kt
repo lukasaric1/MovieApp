@@ -1,7 +1,6 @@
-package com.example.movieapp.screens.home
+package com.example.movieapp.screens.home.home
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.movieapp.MovieRow
+import com.example.movieapp.navigation.MovieScreens
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,12 +33,14 @@ fun HomeScreen(navController: NavController) {
             )
         }
     ) {
-        MainContent()
+        MainContent(navController = navController)
     }
 }
 
 @Composable
-fun MainContent(movieList: List<String> = listOf(
+fun MainContent(
+    navController: NavController,
+    movieList: List<String> = listOf(
     "No Country for Old Men",
     "Pulp Fiction",
     "Harry Potter",
@@ -53,9 +55,9 @@ fun MainContent(movieList: List<String> = listOf(
 )) {
     Column(modifier = Modifier.padding(12.dp)) {
         LazyColumn {
-            items(items = movieList) { movie ->
-                MovieRow(movie = movie) {
-                    Log.d("TAG", "MainContent: $movie")
+            items(items = movieList) {
+                MovieRow(movie = it) { movie ->
+                    navController.navigate(route = MovieScreens.DetailsScreen.name+"/$movie")
                 }
             }
         }
