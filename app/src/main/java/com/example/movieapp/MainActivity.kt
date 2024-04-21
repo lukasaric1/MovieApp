@@ -41,6 +41,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.movieapp.navigation.MovieNavigation
 import com.example.movieapp.ui.theme.MovieAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -49,7 +50,7 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             MyApp{
-                MainContent()
+                MovieNavigation()
             }
 
         }
@@ -58,57 +59,13 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyApp(content: @Composable (PaddingValues) -> Unit) {
+fun MyApp(content: @Composable () -> Unit) {
 
     MovieAppTheme {
-
-        Scaffold(
-            topBar = {
-                CenterAlignedTopAppBar(
-                    title = { Text(text = "Movies") },
-                    colors = TopAppBarDefaults.topAppBarColors (
-                            containerColor = MaterialTheme.colorScheme.primaryContainer,
-                            titleContentColor = MaterialTheme.colorScheme.primary,
-
-                    ),
-                )
-
-        }) {
-            content(it)
-        }
-
+        content()
     }
 }
 
-@Composable
-fun MainContent(movieList: List<String> = listOf(
-    "No Country for Old Men",
-    "Pulp Fiction",
-    "Harry Potter",
-    "Lord of the Rings",
-    "Pursuit of Happiness",
-    "300",
-    "Ace Ventura",
-    "American Sniper",
-    "Bad Boys 1",
-    "Bad Boys 2",
-    "The Fast and Furious")) {
-
-    Column(modifier = Modifier.padding(12.dp)) {
-        LazyColumn {
-            items(items = movieList) {
-                MovieRow(movie = it) {
-                    movie ->
-                    Log.d("TAG", "MainContent: $movie")
-                }
-
-            }
-        }
-
-    }
-
-
-}
 
 @Composable
 fun MovieRow(movie: String, onItemClick: (String) -> Unit = {} ) {
@@ -117,13 +74,14 @@ fun MovieRow(movie: String, onItemClick: (String) -> Unit = {} ) {
         .fillMaxWidth()
         .height(130.dp)
         .clickable {
-                onItemClick(movie)
+            onItemClick(movie)
         },
         shape = RoundedCornerShape(corner = CornerSize(16.dp)),
         elevation = CardDefaults.cardElevation(4.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start) {
-            Surface (modifier = Modifier.padding(12.dp)
+            Surface (modifier = Modifier
+                .padding(12.dp)
                 .size(100.dp),
                     shape = RoundedCornerShape(corner = CornerSize(16.dp)),
                     shadowElevation = 5.dp) {
@@ -144,6 +102,6 @@ fun MovieRow(movie: String, onItemClick: (String) -> Unit = {} ) {
 @Composable
 fun DefaultPreview() {
     MyApp {
-       MainContent()
+       MovieNavigation()
     }
 }
