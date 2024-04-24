@@ -43,7 +43,7 @@ fun HomeScreen(navController: NavController) {
 fun MainContent(
     navController: NavController,
     movieList: List<Movie> = getMovies()) {
-    Column(modifier = Modifier.padding(12.dp)) {
+    Column(modifier = Modifier.padding(top=65.dp)) {
         LazyColumn {
             items(items = movieList) {
                 MovieRow(movie = it) { movie ->
