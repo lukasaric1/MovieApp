@@ -56,6 +56,7 @@ fun MovieRow(movie: Movie = getMovies()[0], onItemClick: (String) -> Unit = {} )
         .clickable {
             onItemClick(movie.id)
         },
+        colors = CardDefaults.cardColors(containerColor = Color.LightGray),
         shape = RoundedCornerShape(corner = CornerSize(15.dp)),
         elevation = CardDefaults.cardElevation(4.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically,

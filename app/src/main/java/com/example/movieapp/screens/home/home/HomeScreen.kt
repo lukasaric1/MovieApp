@@ -13,6 +13,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.movieapp.model.Movie
@@ -27,7 +30,8 @@ fun HomeScreen(navController: NavController) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text(text = "Movies") },
+                title = { Text(text = "Movies",
+                    fontFamily = FontFamily.Monospace)},
                 colors = TopAppBarDefaults.topAppBarColors (
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.primary
@@ -43,7 +47,8 @@ fun HomeScreen(navController: NavController) {
 fun MainContent(
     navController: NavController,
     movieList: List<Movie> = getMovies()) {
-    Column(modifier = Modifier.padding(top=65.dp)) {
+    Column(modifier = Modifier
+        .padding(top=65.dp)) {
         LazyColumn {
             items(items = movieList) {
                 MovieRow(movie = it) { movie ->
